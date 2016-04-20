@@ -1,14 +1,26 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"github.com/golang/glog"
 	"github.com/gorilla/websocket"
 	"github.com/kr/pty"
 	"net/http"
+	"os"
 	"os/exec"
 )
 
+var container string
+
 func main() {
+	flag.Parse()
+	if len(os.Args) < 2 {
+		fmt.Printf("Usage: server [containerId]\n")
+		return
+	}
+	container = os.Args[1]
+	fmt.Printf("Connecting to container %s\n", container)
 	http.HandleFunc("/", reqWs)
 	glog.Fatal(http.ListenAndServe(":8009", nil))
 }
