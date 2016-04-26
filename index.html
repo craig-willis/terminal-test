@@ -27,7 +27,7 @@
 ;(function() {
   window.onload = function() {
 
-      var url = "ws://localhost:8009/"
+      var url = "ws://localhost:30001/console?namespace=willis8&ssid=smpkz3-mongo"
       var ws = new WebSocket(url);
 
       var term = new Terminal({
@@ -41,6 +41,7 @@
 
       ws.onclose = function() {
         term.destroy();
+		document.getElementById("terminal").innerHTML="Console closed" 
       };
 
       ws.onmessage = function (msg) {
@@ -48,7 +49,7 @@
       };
 
       term.on('data', function(data) {
-	ws.send(data)
+			ws.send(data)
       });
 
       term.on('title', function(title) {
@@ -57,11 +58,10 @@
 
       term.open(document.body);
 
-      term.write('\x1b[31mWelcome to NDS Labs\x1b[m\r\n');
   };
 }).call(this);
 </script>
 
 <body>
-   <div id="terminal">Terminal div</div>
+   <div id="terminal"></div>
 </body>
