@@ -25,9 +25,18 @@
 <script src="term.js"></script>
 <script>
 ;(function() {
+   function getParameterByName(name) {
+       var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+       return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+   }
   window.onload = function() {
 
-      var url = "ws://localhost:30001/console?namespace=willis8&ssid=smpkz3-mongo"
+      var ip = getParameterByName("ip")
+      var port = getParameterByName("port")
+      var ssid = getParameterByName("ssid")
+      var ns = getParameterByName("ns")
+      var url = "ws://" + ip + ":" + port + "/console?namespace=" + ns + "&ssid=" + ssid
+alert(url)
       var ws = new WebSocket(url);
 
       var term = new Terminal({
