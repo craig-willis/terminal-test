@@ -36,7 +36,6 @@
       var ssid = getParameterByName("ssid")
       var ns = getParameterByName("ns")
       var url = "ws://" + ip + ":" + port + "/console?namespace=" + ns + "&ssid=" + ssid
-alert(url)
       var ws = new WebSocket(url);
 
       var term = new Terminal({
